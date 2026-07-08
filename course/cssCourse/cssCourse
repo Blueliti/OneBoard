@@ -1,0 +1,104 @@
+
+how to include your css in html :
+
+    css stand for styling your element of the web page for example
+    this goes from this 
+
+    <h1>this is a test</h1>
+    to
+    <h1 style="color: blue; text-align: center">this is a test</h1>
+
+    this is directly in a tag put as attribute
+
+    i you want to apply it on multiple tag you can put itr in the header
+    <head>
+        <style>
+        h1 { 
+            color: blue; 
+            text-align: center;
+            }
+        </style>
+    </head>
+    this is put as a list of attribute affecting only h1
+
+
+    and the last option you can reference it so you can reapply it whenever you want to 
+    two separate file
+    <head>
+        <link rel="styleSheet"; href="csscourse.css";> 
+    </head>
+    here rel stand for relationship and href the actual link of the file 
+    in ccs file :
+    h1{
+        color: blue;
+    }
+
+
+now css attribute :
+    padding : space in the containner 
+    margin : space outside of to the cointainer 
+    font-family : witch font 
+    font-weight : bold,
+
+
+    for more css attribute : https://www.w3schools.com/cssref/index.php
+
+
+now how to select your tag that get associated to cssattribute you can either 
+    write :
+
+    only <th></th>
+    h1 {
+        color: blue;
+    }  
+
+    <h1></h1> and <h2></h2>
+    h1, h2 {
+        color: blue;
+    }  
+
+   or you can add a class attribute to your h1 so all the h1 are not taken 
+
+   in html:
+   <h1>heading 1</h1>
+   <h1>heading 2</h1>
+   <h1 class="headingBlue">heading 3</h1>
+   <h1 class="headingBlue">heading 4</h1>
+
+   in css :
+   .headingBlue {
+        color: blue;
+   }
+    and if you want only one to be selected use the attribute id
+
+   in html:
+   <h1>heading 1</h1>
+   <h1 id="headingOrange">heading 2</h1>
+   <h1 class="headingBlue">heading 3</h1>
+   <h1 class="headingBlue">heading 4</h1>
+   
+   in css :
+   .headingBlue {
+        color: blue;
+   }
+
+   #headingOrange {
+        color: blue;
+   }
+
+    other way to select <!--🏙️ See image 🏙️ -->
+
+Override order :
+
+if an element has a class attribute  and has an id  attribute are going to overide the class attribute 
+
+in order
+1. inline
+2. id
+3. class
+4. type
+
+
+
+
+

@@ -1,0 +1,24 @@
+git clone "the repository url" depend if youre connected
+git add "filename.extension" = add a specific file to repository 
+git commit -m "message" = take a snap shot of actual code 
+git status = know number of commit etc etc
+git push = push to github with all commits etc etc..
+git commit -am "message" = all the changed file not just the one added
+git pull = "take the latest version of the file on github"
+be aware of merge conflicted by git pull to have the latest version 
+resolve conflict and push 
+git log = find commit name| who edited | etc...
+git reset --hard <commit> = get back to a specific previous version 
+
+
+
+git branches for addind new features    
+git branch = tell you wich branch youre actually on 
+git checkhout -b "name of branch" = create and switch to new branch
+git checkhout "nameof branch" = to switch to the branch you want 
+git merge "nameof branch" = merge with master branch
+<!--🏙️ See image 🏙️ -->
+
+
+git fork to clone people repository like bootstrap 
+git 

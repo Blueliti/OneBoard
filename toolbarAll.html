@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="toolBarHorizontal/buttontemplate/variables.css">
+  <link rel="stylesheet" href="toolbarVertical/buttontemplate/variables.css">
+  <title>Horizontal Bar</title>
+  <style>
+    /* l'iframe qui contient la barre verticale : pas de bordure, fond transparent */
+    #verticalFrame {
+      border: none;
+      width: 120px;
+      height: 420px;
+      background: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="Toolbar">
+
+
+  <script>
+    fetch('toolBarHorizontal/ToolBarHorizontal.html')
+      .then(response => {
+        if (!response.ok) throw new Error(`ToolBarHorizontal.html -> ${response.status}`);
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById('horizontalContent').innerHTML = html;
+      })
+      .catch(error => console.error('Erreur de chargement:', error));
+  </script>
+
+    <!-- la barre verticale charge ses propres scripts/chemins : iframe -->
+    <iframe id="verticalFrame" src="toolbarVertical/ToolBarVertical.html"></iframe>
+
+    <!-- la barre horizontale est du markup statique : simple fetch -->
+    <div id="horizontalContent"></div>
+
+  
+  </div>
+
+</body>
+</html>

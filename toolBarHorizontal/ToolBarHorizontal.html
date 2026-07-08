@@ -3,29 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="buttontemplate/variables.css">
   <title>Horizontal Bar</title>
 </head>
 
 <body>
-  <div class= "buttonSlot" data-icon="buttontemplate/icons/close.html"></div>
-  <div class= "buttonSlot2" data-icon="buttontemplate/icons/close.html"></div>
-  <script>
-    fetch("buttontemplate/button.html")
-      .then(r => r.text())
-      .then(buttonHtml => {
-        document.querySelectorAll(".buttonSlot").forEach(s => {
-          s.innerHTML = buttonHtml;                 // 1) put the button in
-          const iconFile = s.dataset.icon;          // 2) read which icon THIS slot wants
-          const iconName = iconFile.split("/").pop().replace(".html", ""); // e.g. "infos"
-          fetch(iconFile)                           // 3) load that icon file
-            .then(r => r.text())
-            .then(iconHtml => {
-              const holder = s.querySelector(".placeHolder");
-              holder.innerHTML = iconHtml;          // 4) drop it in
-              holder.classList.add("icon-" + iconName); // 5) tag it, e.g. "icon-infos"
-            });
-        })
-        });
-  </script>
+  <div class="horizontalToolbar">
+    <div id="left">
+      <button class="button" id="cross">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" id="closeIcn">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M18 6l-12 12" />
+          <path d="M6 6l12 12" />
+        </svg>
+      </button>
+      <button class="button" id="undo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" id="undoIcn">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M9 14l-4 -4l4 -4" />
+          <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
+        </svg>
+      </button>
+      <button class="button" id="redo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" id="redoIcn">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M15 14l4 -4l-4 -4" />
+          <path d="M19 10h-11a4 4 0 1 0 0 8h1" />
+        </svg>
+      </button>
+    </div>
+
+    <div id="middle">
+      <button class="button" id="rectangle"></button>
+    </div>
+
+    <div id="right">
+      <button class="button" id="lock">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M9 14l-4 -4l4 -4" />
+          <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <h1> meh</h1>
+
 </body>
-</html>
+</html> 

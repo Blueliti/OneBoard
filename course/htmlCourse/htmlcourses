@@ -1,0 +1,111 @@
+HTML DOCUMENT :
+
+
+Visual representation of how it works :
+<!--🏙️ See image1 🏙️-->
+
+<a></a> = this is called an html tag
+link to html tags :
+https://www.swhosting.com/en/blog/complete-list-of-html-tags-what-they-are-and-how-to-use-them-D1FC2438
+
+First the document type :
+<!DOCTYPE html>
+
+Second the opneing of the html file :
+<html lang="en">
+
+    - Divided in 2 parts :
+    First :
+        <head>  </head>
+            declare anything that the web page need to know :
+            <title> </title> = the name of the web page
+        </head>
+
+    Second :
+        <body>  
+            What's going to sit in the web page.
+
+            <div>   
+            </div>
+            is a container that fill the actual page more like boxes 
+
+
+            <h1>
+            </h1>
+            This stand for headings from 1 to 6 one is the bigger in term of 
+            size and 6 the smallest
+
+
+            <ol>
+                <li>  first list element </li>
+                <li>  second list element </li>
+            </ol>
+            This stand for ordered list like 
+            1.
+            2.
+            3.
+
+
+                <ul>
+                <li>  first list element </li>
+                <li>  second list element </li>
+            </ul>
+            This stand for unordered list like ( dot lists )
+            1.
+            2.
+            3.
+
+            
+            <img source="image.png" alt="monImage" width="300px">
+            put an image in the canva in blue it's the attribute associated with 
+            the image
+            because an image can't contain anything else itshut itself >
+            alt is for if you're image don't shows up it will show the message
+            <!--🏙️ See image2  🏙️ -->
+
+            <a href="https://google.com">  click here </a>
+            link to external data  href = link 
+            click here = the mame of the link
+
+            <a href="imageFolder/image.png">  click here </a>
+            link to external your own data
+            click here = the mame of the link
+
+
+
+        <table> 
+                <thead> 
+                <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>test1</td>
+                        <td>test2</td>
+                        <td>test3</td>
+                    </tr>
+                     <tr>
+                        <td>Columntest1</td>
+                        <td>Columntest2</td>
+                        <td>Columntest3</td>
+                    </tr>
+                </tbody>
+        </table>
+        
+        thead = table head 
+        tr = table row 
+        th = table header
+        td = table data
+        <!--🏙️ See image3  🏙️ -->
+
+
+
+
+
+        </head>
+</html>
+
+

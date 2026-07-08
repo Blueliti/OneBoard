@@ -1,0 +1,31 @@
+.horizontalToolbar {
+  display: flex;
+  align-items: center;
+}
+
+svg {
+
+  stroke: white;
+}
+
+.button {
+  background-color: #252525;
+  width: 44px; /* fixed button size */
+  height: 44px;
+  display: flex;
+  border-radius: 100px;
+  border: none;
+  color: white;
+  padding: 10px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 4px;
+  box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.6);
+}
+
+.button:hover {
+  background-color: #ffa800;
+}
+
+/*# sourceMappingURL=variables.css.map */

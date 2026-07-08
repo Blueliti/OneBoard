@@ -1,0 +1,66 @@
+//Variables 
+$tangerine: #ffa800;
+$gray: #252525;
+$lightGray:#3f3f3f;
+
+.horizontalToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.horizontalToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+#left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+#middle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#right{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+svg{
+  stroke: white;
+  width: 24px;
+  height: 24px;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+}
+#rectangle { background-color: $gray;
+width: 300px;           
+height: 4px;
+padding: 0;
+border-radius: 20px;
+margin: 0;
+box-shadow: none;
+}
+.button:hover { background-color: $tangerine; }
+.button { background-color: $gray;
+width: 44px;            /* fixed button size */
+height: 44px;
+display: flex;
+border-radius: 100px; 
+border: none; 
+color: white; 
+padding: 10px 12px; 
+text-align: center; 
+text-decoration: none; 
+display: inline-block; 
+margin: 4px 4px;
+box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.6);
+}
+.button:hover, #rectangle:hover {
+  background-color: $tangerine;
+}
+
