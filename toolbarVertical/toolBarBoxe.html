@@ -1,0 +1,15 @@
+<style>
+.toolBarBoxe {
+  display: inline-flex;        /* hug content instead of filling width */
+  flex-direction: column;      /* stack the buttons vertically */
+  width: fit-content;          /* shrink the box to its content */
+  gap: 6px;                    /* space between buttons */
+  padding: 8px;                /* space inside the box */
+  background-color: #5d5d5d;
+  border-radius: 100px;
+  box-shadow:  -2px 2px 10px rgba(0, 0, 0, 0.6);
+  position: relative;          /* enable z-index stacking */
+  z-index: 1;                  /* sit on top of the ref button */
+  margin-top: -35px;           /* pull up so the box cuts into the button */
+}
+</style>
