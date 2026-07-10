@@ -1,0 +1,265 @@
+//Variables
+$tangerine: #ffa800;
+$gray: #252525;
+$lightGray: #3f3f3f;
+
+// Damier (checkerboard) pour voir la transparence du verre
+body.all {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #e9e9e9;
+  background-image:
+    linear-gradient(45deg, #bfbfbf 25%, transparent 25%),
+    linear-gradient(-45deg, #bfbfbf 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #bfbfbf 75%),
+    linear-gradient(-45deg, transparent 75%, #bfbfbf 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+}
+
+.horizontalToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+
+#left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+}
+
+svg {
+  stroke: white;
+  width: 24px;
+  height: 24px;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  position: relative;
+  /* garde l'icône au-dessus du verre */
+  z-index: 1;
+}
+
+#rectangle {
+  background-color: rgba($gray, 0.1);
+  /* rétrécit avec la fenêtre : 300px max, jusqu'à 60px min */
+  width: clamp(60px, 40vw, 300px);
+  flex-shrink: 0;
+  /* c'est clamp() qui gère la taille, pas l'écrasement flex */
+  height: 6px;
+  padding: 0;
+  border-radius: 20px;
+  margin: 0;
+  box-shadow: none;
+}
+
+// la fine barre : pas de liseré blanc (::before), mais garde le verre ::after
+#rectangle::before {
+  display: none;
+}
+
+.button {
+  background-color: rgba($gray, 0.1);
+  position: relative;
+  /* ancre les pseudo-éléments ::before / ::after */
+  overflow: hidden;
+  /* clippe le verre à la forme arrondie (pas de bavure) */
+  width: 44px;
+  /* fixed button size */
+  height: 44px;
+  display: flex;
+  border-radius: 100px;
+  border: none;
+  color: white;
+  padding: 10px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 4px;
+  box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 9999px;
+  -webkit-box-shadow: inset 2px 2px 0px -2px rgba(255, 255, 255, 0.7), inset 0 0 3px 1px rgba(255, 255, 255, 0.7);
+  box-shadow: inset 2px 2px 0px -2px rgba(255, 255, 255, 0.7), inset 0 0 3px 1px rgba(255, 255, 255, 0.7);
+  background-color: rgb(255 255 255 / 10%);
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: 9999px;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  -webkit-filter: url(#btn-glass);
+  filter: url(#btn-glass);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+@-webkit-keyframes moveBackground {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 0% -1000%;
+  }
+}
+
+@keyframes moveBackground {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 0% -1000%;
+  }
+}
+
+.button:hover {
+  background-color: transparent; // laisse le verre teinté ressortir
+}
+
+// enlève le voile blanc du ::before qui délave l'orange (on garde juste le liseré)
+// on retire aussi le halo interne (inset 0 0 3px 1px) qui dessinait une ligne blanche à côté de la bordure
+.button:hover::before {
+  background-color: transparent;
+  box-shadow: inset 2px 2px 0px -2px rgba(255, 255, 255, 0.7);
+}
+
+.button:hover::after {
+  background-color: rgba($tangerine, 1);
+  mix-blend-mode: multiply; // colorise au lieu de délaver
+  -webkit-backdrop-filter: blur(2px) saturate(1.3) brightness(1.2);
+  backdrop-filter: blur(2px) saturate(1.3) brightness(1.2);
+
+}
+
+// la barre fine : survol orange simple, sans verre
+#rectangle:hover {
+  background-color: $tangerine;
+}
+
+#closeIcn,
+#undoIcn,
+#layersIcn,
+{
+transform: translate(-2px, 0px);
+transform-origin: center;
+transform-box: fill-box;
+}
+
+#plusIcn {
+  transform: translate(-1px, 0px);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#lockIcn {
+  scale: 0.6;
+  transform: translate(-20px, -15px);
+  transform-origin: center;
+  transform-box: fill-box;
+
+}
+
+#lock {
+  height: 25px;
+  width: 10px;
+}
+
+// fenêtre trop petite : gauche + milieu restent sur la ligne du haut,
+// seuls plus/layers descendent, centrés sous le lock.
+@media (max-width: 600px) {
+  .horizontalToolbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; // colonnes équilibrées -> milieu (lock) centré
+    align-items: center;
+    row-gap: 8px;
+  }
+
+  // undo / redo / cross : à gauche, sur la ligne du haut
+  #left {
+    grid-column: 1;
+    grid-row: 1;
+    justify-content: flex-start;
+  }
+
+  // rectangle + lock : au centre, même ligne horizontale
+  #middle {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  // plus + layers : sous le lock, empilés verticalement.
+  // le lock est le dernier élément du milieu (donc à droite de la colonne),
+  // donc on aligne plus/layers sur le bord droit -> pile sous le lock
+  #right {
+    grid-column: 2;
+    grid-row: 2;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
+.verticalToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.toolStack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+}
+
+.toolBarBoxe {
+  display: inline-flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 100px;
+  box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.6);
+  position: relative;
+  z-index: 1;
+  margin-top: -35px;
+  z-index: -1;
+  inset: 0;
+  border-radius: 9999px;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  -webkit-filter: url(#btn-glass);
+  filter: url(#btn-glass);
+  overflow: hidden;
+  isolation: isolate;
+  
+}

@@ -1,0 +1,4 @@
+get rid of the weird inline in hoover effect 
+reduce size of lock
+reduce size of rectangle until it can be reduce
+redo the left side bar

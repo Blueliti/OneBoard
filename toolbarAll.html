@@ -3,11 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="toolBarHorizontal/buttontemplate/variables.css">
-  <link rel="stylesheet" href="toolbarVertical/buttontemplate/variables.css">
-  <title>Horizontal Bar</title>
+  <link rel=stylesheet href="/variables.css">
+  <title>Toolbars</title>
   <style>
-    /* l'iframe qui contient la barre verticale : pas de bordure, fond transparent */
+
+    /* chaque barre est chargée dans son propre iframe : elle apporte son CSS
+       et exécute ses propres fetch() relatifs, donc pas de conflit ni de chemin cassé */
+    .Toolbar {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px;
+    }
+
+    /* la barre horizontale : pleine largeur, hauteur juste suffisante */
+    #horizontalFrame {
+      border: none;
+      width: 100%;
+      height: 80px;
+      background: transparent;
+    }
+
+    /* la barre verticale : fond transparent, pas de bordure */
     #verticalFrame {
       border: none;
       width: 120px;
@@ -17,30 +35,13 @@
   </style>
 </head>
 
-<body>
+<body class="all">
   <div class="Toolbar">
+    <!-- barre horizontale : page auto-suffisante (lien /variables.css + filtre SVG) -->
+    <iframe id="horizontalFrame" src="toolBarHorizontal/ToolBarHorizontal.html"></iframe>
 
-
-  <script>
-    fetch('toolBarHorizontal/ToolBarHorizontal.html')
-      .then(response => {
-        if (!response.ok) throw new Error(`ToolBarHorizontal.html -> ${response.status}`);
-        return response.text();
-      })
-      .then(html => {
-        document.getElementById('horizontalContent').innerHTML = html;
-      })
-      .catch(error => console.error('Erreur de chargement:', error));
-  </script>
-
-    <!-- la barre verticale charge ses propres scripts/chemins : iframe -->
+    <!-- barre verticale : page auto-suffisante (assemble ses morceaux via fetch) -->
     <iframe id="verticalFrame" src="toolbarVertical/ToolBarVertical.html"></iframe>
-
-    <!-- la barre horizontale est du markup statique : simple fetch -->
-    <div id="horizontalContent"></div>
-
-  
   </div>
-
 </body>
 </html>
