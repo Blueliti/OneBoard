@@ -1,8 +1,4 @@
 @charset "UTF-8";
-body {
-  margin: 0;
-}
-
 body.all {
   margin: 0;
   min-height: 100vh;
@@ -234,4 +230,4 @@ svg {
   isolation: isolate;
 }
 
-/*# sourceMappingURL=variables.css.map */
+/*# sourceMappingURL=variablesV.css.map */

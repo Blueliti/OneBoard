@@ -1,0 +1,45 @@
+$tangerine: #ffa800;
+$gray: #252525;
+$lightGray: #3f3f3f;
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #e9e9e9;
+    background-image:
+        linear-gradient(45deg, #bfbfbf 25%, transparent 25%),
+        linear-gradient(-45deg, #bfbfbf 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #bfbfbf 75%),
+        linear-gradient(-45deg, transparent 75%, #bfbfbf 75%);
+    background-size: 24px 24px;
+    background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+}
+
+
+#cursorNone {
+    cursor: none;
+}
+
+#pencilCursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* la pointe du crayon (≈ x4,y20 dans l'icône) est placée pile sur la souris */
+    transform: translate(-4px, -20px);
+    pointer-events: none;
+    /* n'intercepte pas les clics */
+    z-index: 9999;
+    color: $tangerine;
+}
+
+// la boîte de sélection dessinée pendant le drag.
+// position:fixed -> left/top/width/height correspondent directement à clientX/clientY.
+#selection {
+    position: fixed;
+    display: none; // cachée tant qu'on ne drague pas (mousedown la montre)
+    border: 2px dashed $tangerine;
+    border-radius: 10px;
+    background: rgba($tangerine, 0.1);
+    pointer-events: none; // la boîte ne doit pas intercepter la souris
+    z-index: 9998;
+}

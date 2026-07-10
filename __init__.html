@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertical Bar</title>
+    <link rel="stylesheet" href="/variablesI.css">
+</head>
+<body id="cursorNone">
+  <!-- l'icône crayon qui suit la souris -->
+  <i id="pencilCursor">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+    </svg>
+  </i>
+
+  <!-- la boîte de sélection (redimensionnée pendant le drag) -->
+  <div id="selection"></div>
+
+
+  <!-- mes scripts : un fichier par phase -->
+  <script src="jsScipt/eventListenersMove.js"></script>
+  <script src="jsScipt/eventListenersClick.js"></script>
+  <script src="jsScipt/eventListenersRelease.js"></script>
+  <script src="jsScipt/displayToolbars.js"></script>
+  <script src="jsScipt/hidingCursor.js"></script>
+  <script>
+    // --- ÉTAT PARTAGÉ entre les 3 phases ---
+    // ces variables globales sont lues/écrites par les 3 handlers ci-dessus.
+    const pencilCursor = document.getElementById("pencilCursor");
+    const selection = document.getElementById("selection");
+    let isDragging = false;
+    var selectionDone = false;   // true entre mousedown et mouseup
+    let startX = 0;           // point d'ancrage du rectangle
+    let startY = 0;
+    let cursor = document.getElementById("cursorNone");
+
+    // --- ON BRANCHE LES 3 PHASES ---
+    setupMouseDown();   // mousedown  -> démarre la sélection
+    setupMouseMove();   // mousemove  -> redimensionne + déplace le crayon
+    setupMouseUp();
+         // mouseup    -> termine la sélection PUIS appelle displayToolbars()
+    
+
+  </script>
+
+</body>
+</html>

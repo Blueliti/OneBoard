@@ -3,6 +3,12 @@ $tangerine: #ffa800;
 $gray: #252525;
 $lightGray: #3f3f3f;
 
+// reset de marge : s'applique aussi au body de la page horizontale chargée en iframe
+// (sinon marge par défaut de 8px -> barre décalée et coupée en bas)
+body {
+  margin: 0;
+}
+
 // Damier (checkerboard) pour voir la transparence du verre
 body.all {
   margin: 0;

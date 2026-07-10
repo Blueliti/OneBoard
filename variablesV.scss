@@ -1,0 +1,83 @@
+//Variables
+$tangerine: #ffa800;
+$gray: #252525;
+$lightGray: #3f3f3f;
+
+// centre le refSheet ET la boîte sur le même axe vertical (même centre X)
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.verticalToolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   // centre le refSheet dans la largeur de la barre
+  gap: 16px;
+  padding: 16px;
+}
+.refSheetBtn {
+  background-color: $lightGray;
+  width: 100px;            /* fixed button size */
+  height: 100px;
+  display: inline-flex;    /* center the icon inside */
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  border: none;
+  color: white;            /* icon uses currentColor -> white */
+  box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.6);
+}
+
+.toolStack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+}
+
+.toolBarBoxe {
+  display: inline-flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 100px;
+  box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.6);
+  position: relative;
+  margin-top: -35px;       // remonte pour chevaucher le bas du refSheet
+  z-index: 1;              // boîte AU-DESSUS -> boutons cliquables/hoverables
+}
+
+svg {
+  stroke: white;
+  width: 24px;
+  height: 24px;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  position: relative;
+  /* garde l'icône au-dessus du verre */
+  z-index: 1;
+}
+
+.button { background-color: $lightGray;
+width: 44px;            /* fixed button size */
+height: 44px;
+display: flex;
+border-radius: 100px; 
+border: none; 
+color: white; 
+padding: 10px 12px; 
+text-align: center; 
+text-decoration: none; 
+display: inline-block; 
+margin: 4px 4px;
+box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.6);
+z-index: 1;
+}
+
+.button:hover {
+  background-color: $tangerine; // laisse le verre teinté ressortir
+}
