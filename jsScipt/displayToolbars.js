@@ -1,58 +1,77 @@
-// Affiche toolbarAll.html une fois la sélection terminée, et cale les deux barres
-// autour de la sélection : verticale à GAUCHE (hauteur = sélection),
-// horizontale en HAUT (largeur = sélection).
+// Affiche les boutons de la sélection (vrai DOM) et les réagence autour d'elle.
+let selBars = null;   // références mises en cache après le 1er chargement
+
 function displayToolbars(ctx) {
   if (!selectionDone) return;
 
-  let container = document.getElementById("toolbarsContainer");
-
-  // déjà chargé ? on se contente de le réafficher et de le repositionner.
-  if (container) {
-    container.style.display = "block";
-    positionToolbars(container);
+  // déjà chargé -> on réaffiche et on recalcule le placement
+  if (selBars) {
+    selBars.root.style.display = "block";
+    layoutToolbars();
     return;
   }
 
-  fetch("toolbarAll.html")
+  fetch("selectionToolbars.html")
     .then((response) => response.text())
     .then((html) => {
-      container = document.createElement("div");
-      container.id = "toolbarsContainer";
-      container.innerHTML = html;              // injecte le <style> + les 2 <iframe> de toolbarAll
-      document.body.appendChild(container);
-      positionToolbars(container);             // on cale les barres sur la sélection
+      const root = document.createElement("div");
+      root.innerHTML = html;
+      document.body.appendChild(root);
+
+      // on mémorise tous les éléments dont layoutToolbars a besoin
+      const $ = (id) => root.querySelector("#" + id);
+      selBars = {
+        root,
+        topBar: $("topBar"),
+        leftBar: $("leftBar"),
+        rightBar: $("rightBar"),
+        bottomBar: $("bottomBar"),
+        close: $("sel-close"),
+        layers: $("sel-layers"),
+        // les boutons dans leur ordre d'origine (sert au "reset")
+        h: ["sel-close", "sel-undo", "sel-redo", "sel-lock", "sel-plus", "sel-layers"].map($),
+        v: ["sel-board", "sel-pencil", "sel-grid", "sel-perspective", "sel-palette", "sel-infos"].map($),
+      };
+      layoutToolbars();
     });
 }
 
-// Place et dimensionne les deux barres par rapport à la sélection.
-function positionToolbars(container) {
-  const rect = selection.getBoundingClientRect(); // left/top/width/height de la sélection (repère fenêtre)
-  const gap = 8;                                   // petit espace entre la barre et la sélection
+// Décide où va chaque bouton selon la taille de la sélection, puis place les barres.
+function layoutToolbars() {
+  const rect = selection.getBoundingClientRect(); // sélection en position:fixed -> mêmes coords
+  const gap = 8;      // espace entre une barre et la sélection
+  const SLOT = 52;    // place occupée par un bouton (44px + marge)
+  const THICK = 52;   // épaisseur d'une barre à une seule rangée/colonne
 
-  const vFrame = container.querySelector("#verticalFrame");
-  const hFrame = container.querySelector("#horizontalFrame");
-  if (!vFrame || !hFrame) return;
+  // 1) RESET : chaque bouton rentre dans sa barre d'origine, dans le bon ordre.
+  //    appendChild DÉPLACE l'élément (il quitte l'ancienne barre) -> idempotent.
+  selBars.h.forEach((b) => selBars.topBar.appendChild(b));
+  selBars.v.forEach((b) => selBars.leftBar.appendChild(b));
 
-  // "épaisseur" fixe de chaque barre (les tailles définies dans toolbarAll)
-  const vThickness = 140; // largeur de la barre verticale
-  const hThickness = 70;  // hauteur de la barre horizontale
+  // 2) OVERFLOW HORIZONTAL : si la barre du haut est plus large que la sélection,
+  //    close + layers partent dans la barre de DROITE.
+  if (rect.width < selBars.h.length * SLOT) {
+    selBars.rightBar.appendChild(selBars.close);
+    selBars.rightBar.appendChild(selBars.layers);
+  }
 
-  // position:fixed -> on raisonne dans le même repère que rect (la fenêtre).
-  // On remet margin:0 car toolbarAll met un margin-top sur l'horizontale.
+  // 3) OVERFLOW VERTICAL : combien de boutons tiennent dans la hauteur ?
+  //    les suivants descendent dans la barre du BAS.
+  const fit = Math.max(1, Math.floor(rect.height / SLOT));
+  if (fit < selBars.v.length) {
+    for (let i = fit; i < selBars.v.length; i++) {
+      selBars.bottomBar.appendChild(selBars.v[i]);
+    }
+  }
 
-  // --- BARRE VERTICALE : à gauche de la sélection, MÊME HAUTEUR ---
-  vFrame.style.position = "fixed";
-  vFrame.style.margin = "0";
-  vFrame.style.top = rect.top + "px";
-  vFrame.style.left = (rect.left - vThickness - gap) + "px";
-  vFrame.style.width = vThickness + "px";
-  vFrame.style.height = rect.height + "px";       // <-- s'adapte à la hauteur de la sélection
+  // 4) PLACEMENT des 4 barres autour de la sélection.
+  place(selBars.topBar, rect.left, rect.top - THICK - gap);          // au-dessus
+  place(selBars.leftBar, rect.left - THICK - gap, rect.top);         // à gauche
+  place(selBars.rightBar, rect.right + gap, rect.top);               // à droite (overflow)
+  place(selBars.bottomBar, rect.left, rect.bottom + gap);            // en bas (overflow)
+}
 
-  // --- BARRE HORIZONTALE : au-dessus de la sélection, MÊME LARGEUR ---
-  hFrame.style.position = "fixed";
-  hFrame.style.margin = "0";
-  hFrame.style.left = rect.left + "px";
-  hFrame.style.top = (rect.top - hThickness - gap) + "px";
-  hFrame.style.width = rect.width + "px";         // <-- s'adapte à la largeur de la sélection
-  hFrame.style.height = hThickness + "px";
+function place(el, left, top) {
+  el.style.left = left + "px";
+  el.style.top = top + "px";
 }

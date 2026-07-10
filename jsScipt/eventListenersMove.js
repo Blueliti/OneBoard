@@ -15,8 +15,8 @@ function setupMouseMove(ctx) {
     //                 ce qui permet de draguer dans N'IMPORTE QUELLE direction
     //                 (vers la droite/bas, mais aussi vers la gauche/haut).
     //     Math.abs -> la largeur/hauteur est la distance (toujours positive) entre les deux points.
-    const x = Math.min(e.clientX, startX);
-    const y = Math.min(e.clientY, startY);
+    const x = (e.clientX, startX);
+    const y = (e.clientY, startY);
     const width = Math.abs(e.clientX - startX);
     const height = Math.abs(e.clientY - startY);
 

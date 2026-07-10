@@ -3,6 +3,10 @@
 // avoir relâché au même endroit, donc il ne peut pas servir à démarrer un glissé.
 function setupMouseDown(ctx) {
   document.addEventListener("mousedown", (e) => {
+    // 0) si on clique SUR une des toolbars, on ne démarre PAS une nouvelle sélection
+    //    (sinon chaque clic sur un bouton effacerait la sélection en cours).
+    if (e.target.closest("#selToolbars")) return;
+
     // 1) on mémorise le point de départ = le coin d'ancrage du rectangle.
     //    e.clientX / e.clientY = position de la souris dans la fenêtre (en px).
     startX = e.clientX;
