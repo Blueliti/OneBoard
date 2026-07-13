@@ -4,4 +4,5 @@ function mouseDown(e) {
  isDragging = true;
  selectionDone = false;
  hidingCursor();
+ toolBarAll.style.visibility = "hidden";
 }
